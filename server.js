@@ -3,20 +3,19 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config({ path: "variables.env" });
 
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 const { makeExecutableSchema } = require("graphql-tools");
 
-mongoose.connect(
-  "mongodb://cknapp92:Spike1992@ds237815.mlab.com:37815/angular-graphql-express"
-);
+mongoose.connect(process.env.MONGO_URI);
 mongoose.connection
   .once("open", () => console.log("Connected to Mongo"))
   .on("error", error => console.error(`Error connecting to Mongo ${error}`));
 
 const { typeDefs } = require("./schema");
 const { resolvers } = require("./resolvers");
-const { model } = require("./models/Course");
+const courseModel = mongoose.model("course");
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -32,9 +31,9 @@ app.use(
 
 app.use(
   "/graphql",
-  cors,
+  cors(),
   bodyParser.json(),
-  graphqlExpress({ schema, context: { model } })
+  graphqlExpress({ schema, context: { courseModel } })
 );
 
 app.get("/", (req, res) => {

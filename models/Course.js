@@ -17,4 +17,4 @@ courseSchema.index({
   "$**": "text"
 });
 
-exports.model = mongoose.model("course", courseSchema);
+module.exports = mongoose.model("course", courseSchema);

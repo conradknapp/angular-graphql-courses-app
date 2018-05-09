@@ -1,6 +1,5 @@
 exports.typeDefs = `
   type Course {
-    id: String
     title: String
     author: String
     description: String
@@ -11,12 +10,12 @@ exports.typeDefs = `
 
   type Query {
     getAllCourses(searchTerm: String): [Course]
-    getCourse(id: String!): Course
+    getCourse(_id: String!): Course
   }
 
   type Mutation {
     addCourse(title: String!, author: String!, description: String!, topic: String!, url: String!): Course
-    upvote(id: String!): Course
-    downvote(id: String!): Course
+    upvote(_id: String!): Course
+    downvote(_id: String!): Course
   }
 `;
