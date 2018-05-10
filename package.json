@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "watch": "babel-watch server.js"
+    "watch": "babel-watch server.js",
+    "client": "cd client && ng serve",
+    "dev": "concurrently \"yarn run watch\" \"yarn run client\""
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -11,6 +13,7 @@
   "dependencies": {
     "apollo-server-express": "^1.3.6",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
